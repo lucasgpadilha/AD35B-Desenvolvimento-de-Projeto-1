@@ -1,0 +1,56 @@
+<%- include('partials/header') %>
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/">Clientes</a></li>
+    <li class="breadcrumb-item"><a href="/client/<%= location.client_id %>"><%= location.client_name %></a></li>
+    <li class="breadcrumb-item active" aria-current="page"><%= location.name %></li>
+  </ol>
+</nav>
+
+<div class="card mb-4">
+    <div class="card-header">
+        <h3>Cadastrar Nova Medição para: <strong><%= location.name %></strong></h3>
+    </div>
+    <div class="card-body">
+        <form action="/location/<%= location.id %>/measurement/add" method="POST">
+            <div class="row">
+                <div class="col-md-4 mb-3"><label class="form-label">Sinal 2.4GHz (dBm)</label><input type="number" class="form-control" name="signal_2_4ghz" required></div>
+                <div class="col-md-4 mb-3"><label class="form-label">Sinal 5GHz (dBm)</label><input type="number" class="form-control" name="signal_5ghz" required></div>
+                <div class="col-md-4 mb-3"><label class="form-label">Interferência (dBm)</label><input type="number" class="form-control" name="interference" required></div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3"><label class="form-label">Velocidade 2.4GHz (Mbps)</label><input type="number" step="0.01" class="form-control" name="speed_2_4ghz" required></div>
+                <div class="col-md-6 mb-3"><label class="form-label">Velocidade 5GHz (Mbps)</label><input type="number" step="0.01" class="form-control" name="speed_5ghz" required></div>
+            </div>
+            <button type="submit" class="btn btn-primary">Salvar Medição</button>
+        </form>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header"><h3>Medições Salvas</h3></div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr><th>Sinal 2.4</th><th>Sinal 5</th><th>Veloc. 2.4</th><th>Veloc. 5</th><th>Interf.</th><th>Data</th></tr>
+                </thead>
+                <tbody>
+                    <% measurements.forEach(item => { %>
+                        <tr>
+                            <td><%= item.signal_2_4ghz %> dBm</td>
+                            <td><%= item.signal_5ghz %> dBm</td>
+                            <td><%= item.speed_2_4ghz %> Mbps</td>
+                            <td><%= item.speed_5ghz %> Mbps</td>
+                            <td><%= item.interference %> dBm</td>
+                            <td><%= item.formatted_timestamp %></td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<%- include('partials/footer') %>

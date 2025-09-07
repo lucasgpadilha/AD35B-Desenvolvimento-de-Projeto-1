@@ -1,0 +1,85 @@
+<%- include('partials/header') %>
+
+<div class="card mb-4">
+    <div class="card-header">
+        <h3>1. Cadastrar Nova Medição</h3>
+    </div>
+    <div class="card-body">
+        <form action="/add" method="POST">
+            <div class="mb-3">
+                <label for="locationName" class="form-label">Nome do Local</label>
+                <input type="text" class="form-control" id="locationName" name="locationName" placeholder="Ex: Escritório" required>
+            </div>
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label for="signal_2_4ghz" class="form-label">Sinal 2.4GHz (dBm)</label>
+                    <input type="number" class="form-control" id="signal_2_4ghz" name="signal_2_4ghz" placeholder="-55" required>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="signal_5ghz" class="form-label">Sinal 5GHz (dBm)</label>
+                    <input type="number" class="form-control" id="signal_5ghz" name="signal_5ghz" placeholder="-45" required>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="interference" class="form-label">Interferência (dBm)</label>
+                    <input type="number" class="form-control" id="interference" name="interference" placeholder="-90" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="speed_2_4ghz" class="form-label">Velocidade 2.4GHz (Mbps)</label>
+                    <input type="number" step="0.01" class="form-control" id="speed_2_4ghz" name="speed_2_4ghz" placeholder="50.5" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="speed_5ghz" class="form-label">Velocidade 5GHz (Mbps)</label>
+                    <input type="number" step="0.01" class="form-control" id="speed_5ghz" name="speed_5ghz" placeholder="350.8" required>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Salvar Medição</button>
+        </form>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h3>2. Medições Salvas</h3>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Local</th>
+                        <th>Sinal 2.4GHz</th>
+                        <th>Sinal 5GHz</th>
+                        <th>Veloc. 2.4GHz</th>
+                        <th>Veloc. 5GHz</th>
+                        <th>Interferência</th>
+                        <th>Data</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% model.forEach(item => { %>
+                        <tr>
+                            <td><%= item.locationName %></td>
+                            <td><%= item.signal_2_4ghz %> dBm</td>
+                            <td><%= item.signal_5ghz %> dBm</td>
+                            <td><%= item.speed_2_4ghz %> Mbps</td>
+                            <td><%= item.speed_5ghz %> Mbps</td>
+                            <td><%= item.interference %> dBm</td>
+                            <td><%= item.formatted_timestamp %></td>
+                            <td class="table-actions">
+                                <a href="/edit/<%= item.id %>" class="btn btn-sm btn-warning">Alterar</a>
+                                <form action="/delete/<%= item.id %>" method="POST" onsubmit="return confirm('Tem certeza que deseja deletar este item?');">
+                                    <button type="submit" class="btn btn-sm btn-danger">Deletar</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,40 @@
+<%- include('partials/header') %>
+
+<div class="card mb-4">
+    <div class="card-header">
+        <h3>Dashboard Comparativo por Cliente</h3>
+    </div>
+    <div class="card-body">
+        <div class="mb-3">
+            <label for="clientSelector" class="form-label"><strong>Selecione um Cliente para comparar os locais:</strong></label>
+            <select class="form-select" id="clientSelector">
+                <option selected disabled>Escolha um cliente...</option>
+                <% clients.forEach(client => { %>
+                    <option value="<%= client.id %>"><%= client.name %> - <%= client.address %></option>
+                <% }); %>
+            </select>
+        </div>
+    </div>
+</div>
+
+<div id="charts-container" class="d-none">
+    <div class="row">
+        <div class="col-lg-6 mb-4">
+            <div class="card"><div class="card-header">Média de Sinal (dBm) por Local</div><div class="card-body"><canvas id="signalChart"></canvas></div></div>
+        </div>
+        <div class="col-lg-6 mb-4">
+            <div class="card"><div class="card-header">Média de Velocidade (Mbps) por Local</div><div class="card-body"><canvas id="speedChart"></canvas></div></div>
+        </div>
+    </div>
+     <div class="row">
+         <div class="col-lg-6 mb-4">
+            <div class="card"><div class="card-header">Média de Interferência (dBm) por Local</div><div class="card-body"><canvas id="interferenceChart"></canvas></div></div>
+        </div>
+     </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="/js/dashboard.js"></script>
+
+<%- include('partials/footer') %>

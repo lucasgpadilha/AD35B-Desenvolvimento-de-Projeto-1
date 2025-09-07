@@ -1,0 +1,47 @@
+<%- include('partials/header') %>
+
+<div class="card mb-4">
+    <div class="card-header">
+        <h3>Cadastrar Novo Cliente</h3>
+    </div>
+    <div class="card-body">
+        <form action="/client/add" method="POST">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label for="name" class="form-label">Nome do Cliente</label>
+                    <input type="text" class="form-control" name="name" required>
+                </div>
+                <div class="col-md-5 mb-3">
+                    <label for="address" class="form-label">Endereço Completo</label>
+                    <input type="text" class="form-control" name="address" required>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label for="contact" class="form-label">Contato (Telefone/Email)</label>
+                    <input type="text" class="form-control" name="contact">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Salvar Cliente</button>
+        </form>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h3>Clientes Cadastrados</h3>
+    </div>
+    <div class="card-body">
+        <div class="list-group">
+            <% clients.forEach(client => { %>
+                <a href="/client/<%= client.id %>" class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1"><%= client.name %></h5>
+                        <small>Contato: <%= client.contact || 'N/A' %></small>
+                    </div>
+                    <p class="mb-1"><%= client.address %></p>
+                </a>
+            <% }) %>
+        </div>
+    </div>
+</div>
+
+<%- include('partials/footer') %>

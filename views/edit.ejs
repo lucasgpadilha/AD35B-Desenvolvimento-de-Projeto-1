@@ -1,0 +1,43 @@
+<%- include('partials/header') %>
+
+<div class="card">
+    <div class="card-header">
+        <h3>Alterar Medição ID: <%= model.id %></h3>
+    </div>
+    <div class="card-body">
+        <form action="/update/<%= model.id %>" method="POST">
+             <div class="mb-3">
+                <label for="locationName" class="form-label">Nome do Local</label>
+                <input type="text" class="form-control" id="locationName" name="locationName" value="<%= model.locationName %>" required>
+            </div>
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label for="signal_2_4ghz" class="form-label">Sinal 2.4GHz (dBm)</label>
+                    <input type="number" class="form-control" id="signal_2_4ghz" name="signal_2_4ghz" value="<%= model.signal_2_4ghz %>" required>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="signal_5ghz" class="form-label">Sinal 5GHz (dBm)</label>
+                    <input type="number" class="form-control" id="signal_5ghz" name="signal_5ghz" value="<%= model.signal_5ghz %>" required>
+                </div>
+                 <div class="col-md-4 mb-3">
+                    <label for="interference" class="form-label">Interferência (dBm)</label>
+                    <input type="number" class="form-control" id="interference" name="interference" value="<%= model.interference %>" required>
+                </div>
+            </div>
+            <div class="row">
+                 <div class="col-md-6 mb-3">
+                    <label for="speed_2_4ghz" class="form-label">Velocidade 2.4GHz (Mbps)</label>
+                    <input type="number" step="0.01" class="form-control" id="speed_2_4ghz" name="speed_2_4ghz" value="<%= model.speed_2_4ghz %>" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="speed_5ghz" class="form-label">Velocidade 5GHz (Mbps)</label>
+                    <input type="number" step="0.01" class="form-control" id="speed_5ghz" name="speed_5ghz" value="<%= model.speed_5ghz %>" required>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success">Salvar Alterações</button>
+            <a href="/" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+</div>
+
+<%- include('partials/footer') %>
